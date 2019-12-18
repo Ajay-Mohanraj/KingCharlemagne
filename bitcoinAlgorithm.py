@@ -8,6 +8,7 @@ def getJSON(filePathAndName):
         return json.load(fp)
 
 info = getJSON('./accountInfo.json')
+prevPrice = getJSON('./prevPrice.json')
 
 import robin_stocks as r
 
@@ -17,6 +18,9 @@ import robin_stocks as r
 email = info.get("email")
 password = info.get("pass")
 
+prevPrice = prevPrice.get("previousPrice")
+initialPrice = prevPrice.get("initialPrice")
+
 r.login(email, password)
 
 # Buy order
@@ -25,8 +29,23 @@ r.login(email, password)
 # Sell order
 # r.order_sell_crypto_by_quantity('BTC', 0.0001)
 
-# get price
+# set initial price
+initialPrice = bv.USD()
 
+# Actual algorithm loop
+bool = true;
+
+while (bool):
+    in = input("Enter stop to end the crypto trader.")
+
+    if (in == "stop"):
+        bool = false;
+        break
+
+    if ((initialPrice * 0.99) == bv.USD())
+
+
+# get price
 print(bv.USD())
 
 # r.load_account_profile(login)
