@@ -14,8 +14,8 @@ import robin_stocks as r
 # email = input("Enter you Robinhood account email: \n")
 # password = input("Enter your Robinhood account password: \n")
 
-email = info.get("info","")[0]
-password = info.get("info","")[1]
+email = info.get("email")
+password = info.get("pass")
 
 r.login(email, password)
 
