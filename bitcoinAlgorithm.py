@@ -2,24 +2,30 @@
 import json
 import bitcoin_value as bv
 
+# loop delay import
+import time
+
 # parse file
 def getJSON(filePathAndName):
     with open(filePathAndName, 'r') as fp:
         return json.load(fp)
 
-info = getJSON('./accountInfo.json')
-prevPrice = getJSON('./prevPrice.json')
+info = json.loads(open('./accountInfo.json').read())
+prevPrice = json.loads(open('./prevPrice.json').read())
 
 import robin_stocks as r
 
 # email = input("Enter you Robinhood account email: \n")
 # password = input("Enter your Robinhood account password: \n")
 
-email = info.get("email")
-password = info.get("pass")
+email = info["email"]
+password = info["pass"]
 
-prevPrice = prevPrice.get("previousPrice")
-initialPrice = prevPrice.get("initialPrice")
+prevPrice = prevPrice["previousPrice"]
+print(prevPrice)\
+# The intitial Price is off for some reason
+initialPrice = prevPrice[0]
+print(initialPrice)
 
 r.login(email, password)
 
@@ -30,19 +36,21 @@ r.login(email, password)
 # r.order_sell_crypto_by_quantity('BTC', 0.0001)
 
 # set initial price
-initialPrice = bv.USD()
+initialPrice = "" + bv.USD()
 
 # Actual algorithm loop
-bool = true;
+bool = True;
 
-while (bool):
-    in = input("Enter stop to end the crypto trader.")
+stop = ""#input("Enter 's' to end the crypto trader.")
 
-    if (in == "stop"):
-        bool = false;
-        break
+count = 1
 
-    if ((initialPrice * 0.99) == bv.USD())
+# this loop is not working properly from some reason
+while (stop != "s"):
+    time.sleep(0.1)
+    print("hi")
+
+    #if ((int(initialPrice) * 0.99) == bv.USD())
 
 
 # get price
