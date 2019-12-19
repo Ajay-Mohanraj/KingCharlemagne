@@ -22,9 +22,9 @@ email = info["email"]
 password = info["pass"]
 
 prevPrice = prevPrice["previousPrice"]
-print(prevPrice)\
+print(prevPrice)
 # The intitial Price is off for some reason
-initialPrice = prevPrice[0]
+initialPrice = prevPrice[1]
 print(initialPrice)
 
 r.login(email, password)
