@@ -47,8 +47,8 @@ count = 1
 
 # this loop is not working properly from some reason
 while (stop != "s"):
-    time.sleep(0.1)
-    print("hi")
+    time.sleep(1)
+    print("hi",flush=True)
 
     #if ((int(initialPrice) * 0.99) == bv.USD())
 
