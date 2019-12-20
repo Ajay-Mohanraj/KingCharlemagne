@@ -10,21 +10,21 @@ def getJSON(filePathAndName):
     with open(filePathAndName, 'r') as fp:
         return json.load(fp)
 
-info = json.loads(open('./accountInfo.json').read())
-prevPrice = json.loads(open('./prevPrice.json').read())
+infoJSON = json.loads(open('./accountInfo.json').read())
+prevPriceJSON = json.loads(open('./prevPrice.json').read())
 
 import robin_stocks as r
 
 # email = input("Enter you Robinhood account email: \n")
 # password = input("Enter your Robinhood account password: \n")
 
-email = info["email"]
-password = info["pass"]
+email = infoJSON["email"]
+password = infoJSON["pass"]
 
-prevPrice = prevPrice["previousPrice"]
+prevPrice = prevPriceJSON["previousPrice"]
 print(prevPrice)
 # The intitial Price is off for some reason
-initialPrice = prevPrice[1]
+initialPrice = prevPriceJSON["initialPrice"]
 print(initialPrice)
 
 r.login(email, password)
