@@ -1,4 +1,4 @@
 {
-  "previousPrice": "0",
-  "initialPrice": "1"
+  "boughtPrice": "0",
+  "givenConstantPrice": "1"
 }

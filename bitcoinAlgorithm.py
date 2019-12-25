@@ -1,6 +1,7 @@
 # API info link: http://www.robin-stocks.com/en/latest/functions.html
 import json
 import bitcoin_value as bv
+import priceUpdater
 
 # loop delay import
 import time
@@ -21,11 +22,11 @@ import robin_stocks as r
 email = infoJSON["email"]
 password = infoJSON["pass"]
 
-prevPrice = prevPriceJSON["previousPrice"]
-print(prevPrice)
+boughtPrice = prevPriceJSON["boughtPrice"]
+print(boughtPrice)
 # The intitial Price is off for some reason
-initialPrice = prevPriceJSON["initialPrice"]
-print(initialPrice)
+givenConstantPrice = prevPriceJSON["givenConstantPrice"]
+print(givenConstantPrice)
 
 r.login(email, password)
 
@@ -36,10 +37,10 @@ r.login(email, password)
 # r.order_sell_crypto_by_quantity('BTC', 0.0001)
 
 # set initial price
-initialPrice = "" + bv.USD()
+givenConstantPrice = "" + bv.USD()
 
 # Actual algorithm loop
-bool = True;
+bool = True
 
 stop = ""#input("Enter 's' to end the crypto trader.")
 
@@ -50,7 +51,15 @@ while (stop != "s"):
     time.sleep(1)
     print("hi",flush=True)
 
-    #if ((int(initialPrice) * 0.99) == bv.USD())
+    #  if the current value is equal to 1% less than the constant
+    if bv.USD() == int(givenConstantPrice) * 0.99:
+        r.order_buy_crypto_by_quantity('BTC', 0.0001)
+        priceUpdater.updateJSON()
+
+    # if the current value is equal to 1 % more than the bought price
+    if bv.USD() == boughtPrice * 1.01:
+        r.order_sell_crypto_by_quantity('BTC', 0.0001)
+        priceUpdater.updateJSON()
 
 
 # get price
