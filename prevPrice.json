@@ -1,4 +1,4 @@
 {
-  "boughtPrice": "0",
-  "givenConstantPrice": "1"
+  "boughtPrices": [4],
+  "givenConstantPrice": []
 }

@@ -1,2 +1,5 @@
-def updateJSON():
-    return 4
+def updateBuy():
+    return 0
+
+def updateSell():
+    return 0
