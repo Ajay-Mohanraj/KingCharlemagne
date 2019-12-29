@@ -4,14 +4,11 @@ import bitcoin_value as bv
 import priceUpdater
 import robin_stocks as r
 import time
-
-def getJSON(filePathAndName):
-    with open(filePathAndName, 'r') as fp:
-        return json.load(fp)
+import getJSON as importer
 
 
-infoJSON = getJSON('./accountInfo.json')
-prevPriceJSON = getJSON('./prevPrice.json')
+infoJSON = importer.getJSON('./accountInfo.json')
+prevPriceJSON = importer.getJSON('./prevPrice.json')
 
 email = infoJSON["email"]
 password = infoJSON["pass"]
@@ -19,10 +16,11 @@ password = infoJSON["pass"]
 # r.login(email, password)
 
 givenConstantPrice = "" + bv.USD()
+print(givenConstantPrice)
 
 loopBreaker = input("type stop to end the loop\n")
 
-while True:
+while loopBreaker != 'stop':
     time.sleep(1)
 
     if loopBreaker == 'stop':
@@ -38,3 +36,6 @@ while True:
         if bv.USD() == int(price) * 1.01:
             r.order_sell_crypto_by_quantity('BTC', 0.0001)
             priceUpdater.updateSell()
+
+# find btc api
+# https://medium.com/@randerson112358/get-bitcoin-price-in-real-time-using-python-98b7393b6152
