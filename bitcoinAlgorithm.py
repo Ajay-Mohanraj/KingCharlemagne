@@ -7,9 +7,9 @@ import time
 import getJSON as importer
 
 
+
 infoJSON = importer.getJSON('./accountInfo.json')
 prevPriceJSON = importer.getJSON('./prevPrice.json')
-
 email = infoJSON["email"]
 password = infoJSON["pass"]
 
