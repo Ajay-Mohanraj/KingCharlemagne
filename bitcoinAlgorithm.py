@@ -4,19 +4,17 @@ import bitcoin_value as bv
 import priceUpdater
 import robin_stocks as r
 import time
-import getJSON as importer
+import BitcoinHelper
 
 
-
-infoJSON = importer.getJSON('./accountInfo.json')
-prevPriceJSON = importer.getJSON('./prevPrice.json')
+infoJSON = BitcoinHelper.getJSON('./accountInfo.json')
+prevPriceJSON = BitcoinHelper.getJSON('./prevPrice.json')
 email = infoJSON["email"]
 password = infoJSON["pass"]
 
 # r.login(email, password)
 
 givenConstantPrice = "" + bv.USD()
-print(givenConstantPrice)
 
 loopBreaker = input("type stop to end the loop\n")
 

@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import json
 
+
 # returns value of bitcoin from https://robinhood.com/crypto/BTC using BeautifulSoup
 def getPrice():
     price = ""
