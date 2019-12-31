@@ -4,7 +4,7 @@ import requests
 
 
 def getPrice():
-    price = 0
+    price = ""
 
     response = requests.get("https://robinhood.com/crypto/BTC")  # Returns instance of Response class
     response.encoding = 'utf-8'  # Just in case the charset of response is not recognized
@@ -14,7 +14,8 @@ def getPrice():
     # https://stackoverflow.com/questions/51639332/use-of-colon-in-variable-declaration
     crypto = BeautifulSoup(response.content, "html.parser")
 
-    for headline in crypto.find_all("span", {"class": "_9YsRP4ChsxbL9qzZnKv0K up"}):
-        print(headline.text)
+    for digit in crypto.find_all("span", {"class": "_9YsRP4ChsxbL9qzZnKv0K up"}):  # return type of find is object
+        if digit.text != '$' and digit.text != ',':
+            price += digit.text
 
-getPrice()
+    return float(price)
