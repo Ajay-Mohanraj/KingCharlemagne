@@ -1,8 +1,8 @@
-# get value of bitcoin from https://robinhood.com/crypto/BTC using BeautifulSoup
 from bs4 import BeautifulSoup
 import requests
+import json
 
-
+# returns value of bitcoin from https://robinhood.com/crypto/BTC using BeautifulSoup
 def getPrice():
     price = ""
 
@@ -19,3 +19,9 @@ def getPrice():
             price += digit.text
 
     return float(price)
+
+
+# returns JSON given file path and name
+def getJSON(filePathAndName):
+    with open(filePathAndName, 'r') as fp:
+        return json.load(fp)
