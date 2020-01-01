@@ -14,24 +14,21 @@ password = infoJSON["pass"]
 
 # r.login(email, password)
 
-givenConstantPrice = "" + bv.USD()
+givenConstantPrice = BitcoinHelper.getPrice()
 
 loopBreaker = input("type stop to end the loop\n")
 
 while loopBreaker != 'stop':
-    time.sleep(1)
-
-    if loopBreaker == 'stop':
-        break
+    time.sleep(30)
 
     #  if the current value is equal to 1% less than the constant
-    if bv.USD() == int(givenConstantPrice) * 0.99:
+    if BitcoinHelper.getPrice() <= givenConstantPrice * 0.99:
         r.order_buy_crypto_by_quantity('BTC', 0.0001)
         priceUpdater.updateBuy()
 
     # if the current value is equal to 1% more than the bought price
     for price in prevPriceJSON["boughtPrices"]:
-        if bv.USD() == int(price) * 1.01:
+        if BitcoinHelper.getPrice() >= price * 1.01:
             r.order_sell_crypto_by_quantity('BTC', 0.0001)
             priceUpdater.updateSell()
 
