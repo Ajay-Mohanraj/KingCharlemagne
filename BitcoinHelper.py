@@ -1,25 +1,22 @@
 from bs4 import BeautifulSoup
 import requests
 import json
-
-
-# returns value of bitcoin from https://robinhood.com/crypto/BTC using BeautifulSoup
-def getPrice():
-    price = ""
-
-    response = requests.get("https://robinhood.com/crypto/BTC")  # Returns instance of Response class
-    response.encoding = 'utf-8'  # Just in case the charset of response is not recognized
-
-    # crypto: bs4.BeautifulSoup = BeautifulSoup(response.content, 'html.parser')
-    # annotation format highlights what type of class the variable crypto is
-    # https://stackoverflow.com/questions/51639332/use-of-colon-in-variable-declaration
-    crypto = BeautifulSoup(response.content, "html.parser")
-
-    for digit in crypto.find_all("span", {"class": "_9YsRP4ChsxbL9qzZnKv0K up"}):  # return type of find is object
-        if digit.text != '$' and digit.text != ',':
-            price += digit.text
-
+import re
+def get_access():
+    url = 'https://robinhood.com/crypto/BTC'
+    req = requests.get(url)
+    m = re.search('\swindow.auth\s*=\s*(.+);', req.text)
+    data = json.loads(m.group(1))
+    return '{0} {1}'.format(data['token_type'], data['access_token'])
+def get_price(head):
+    urldomain = 'https://api.robinhood.com/marketdata/forex/quotes/3d961844-d360-45fc-989b-f6fca761d511/'
+    request = requests.get(urldomain, headers=head)
+    info = request.json()
+    price = info.get('mark_price')
     return float(price)
+token = get_access()
+price = get_price({'authorization': token})
+print(price)
 
 
 # returns JSON given file path and name
