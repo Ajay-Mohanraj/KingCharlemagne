@@ -7,14 +7,15 @@ import time
 import BitcoinHelper
 
 
-infoJSON = BitcoinHelper.getJSON('./accountInfo.json')
-prevPriceJSON = BitcoinHelper.getJSON('./prevPrice.json')
+infoJSON = BitcoinHelper.readJSON('./accountInfo.json')
+prevPriceJSON = BitcoinHelper.readJSON('./prevPrice.json')
 email = infoJSON["email"]
 password = infoJSON["pass"]
 
 # r.login(email, password)
 
 givenConstantPrice = BitcoinHelper.getPrice()
+priceUpdater.updateConstant(givenConstantPrice)
 
 loopBreaker = input("type stop to end the loop\n")
 
