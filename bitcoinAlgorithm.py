@@ -1,78 +1,45 @@
 # API info link: http://www.robin-stocks.com/en/latest/functions.html
 import json
 import bitcoin_value as bv
-
-CAPITAL_VARIABLE = 10
-
-# loop delay import
-import time
-
-# parse file
-def getJSON(filePathAndName):
-    with open(filePathAndName, 'r') as fp:
-        return json.load(fp)
-
-infoJSON = json.loads(open('./accountInfo.json').read())
-prevPriceJSON = json.loads(open('./prevPrice.json').read())
-
+import priceUpdater
 import robin_stocks as r
+import time
+import BitcoinHelper
 
-# email = input("Enter you Robinhood account email: \n")
-# password = input("Enter your Robinhood account password: \n")
+maxCapital = 10 # input("What is the maximum capital you are willing to invest with Charlemagne?")
 
+
+infoJSON = BitcoinHelper.getJSON('./accountInfo.json')
+prevPriceJSON = BitcoinHelper.getJSON('./prevPrice.json')
 email = infoJSON["email"]
 password = infoJSON["pass"]
 
-prevPrice = prevPriceJSON["previousPrice"]
-print(prevPrice)
-
-initialPrice = prevPriceJSON["initialPrice"]
-print(initialPrice)
-
-capitalLeft = prevPriceJSON["availableCapitol"]
-
-capitalLeft = CAPITAL_VARIABLE
-
-print(capitalLeft)
-
 r.login(email, password)
 
-# Buy order
-# r.order_buy_crypto_by_quantity('BTC', 0.001)
+givenConstantPrice = BitcoinHelper.get_price()
+print(givenConstantPrice)
 
-# Sell order
-# r.order_sell_crypto_by_quantity('BTC', 0.0001)
+#loopBreaker = input("type stop to end the loop\n")
 
-# set initial price
-initialPrice = bv.USD()
-print(initialPrice)
-
-# Actual algorithm loop
-bool = True;
-
-stop = ""#input("Enter 's' to end the crypto trader.")
-
-count = 1
-
-# this loop is not working properly from some reason
-while (stop != "s"):
+while True:
     time.sleep(1)
-    #print("hi",flush=True)
-    prevPrice = bv.USD()
+    r.get_crypto_positions(info="price")
+    print("Testing...", flush=True)
 
-    if (capitalLeft > 0):
-        if (initialPrice * 0.99999 >= int(prevPrice)):
-            print("Bitcoin would have been bought at: " + prevPrice + " after it dropped from " + initialPrice, flush=True)
+    #  if the current value is equal to 1% less than the constant
+    if BitcoinHelper.get_price() <= givenConstantPrice * 0.99999:
+        r.get_crypto_positions() #info = x
+        #r.order_buy_crypto_by_quantity('BTC', 0.0001)
+        print("bought " + str(BitcoinHelper.get_price()))
+        #priceUpdater.updateBuy()
 
-    #if ((int(initialPrice) * 0.99) == bv.USD())
+    # if the current value is equal to 1% more than the bought price
+    for price in prevPriceJSON["boughtPrices"]:
+        if BitcoinHelper.get_price() >= price * 1.0001:
+            #r.order_sell_crypto_by_quantity('BTC', 0.0001)
+            print("Selling " + str(price * 1.0001) + " at " + str(BitcoinHelper.get_price()))
+            #priceUpdater.updateSell()
 
 
-# get price
-print(bv.USD())
-
-# r.load_account_profile(login)
-print("Bitcoin was bought at: ")
-r.crypto.get_crypto_info('BTC')
-print("You now hold: ")
-r.crypto.get_crypto_positions()
-# r.logout()
+# find btc api
+# https://medium.com/@randerson112358/get-bitcoin-price-in-real-time-using-python-98b7393b6152
