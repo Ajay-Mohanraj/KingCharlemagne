@@ -1,4 +1,5 @@
 {
-  "previousPrice": "0",
-  "initialPrice": "1"
+  "previousPrice": 0,
+  "initialPrice": 1,
+  "availableCapitol": 0
 }

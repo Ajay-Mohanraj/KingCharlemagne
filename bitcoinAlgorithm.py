@@ -2,6 +2,8 @@
 import json
 import bitcoin_value as bv
 
+CAPITAL_VARIABLE = 10
+
 # loop delay import
 import time
 
@@ -23,9 +25,15 @@ password = infoJSON["pass"]
 
 prevPrice = prevPriceJSON["previousPrice"]
 print(prevPrice)
-# The intitial Price is off for some reason
+
 initialPrice = prevPriceJSON["initialPrice"]
 print(initialPrice)
+
+capitalLeft = prevPriceJSON["availableCapitol"]
+
+capitalLeft = CAPITAL_VARIABLE
+
+print(capitalLeft)
 
 r.login(email, password)
 
@@ -36,7 +44,8 @@ r.login(email, password)
 # r.order_sell_crypto_by_quantity('BTC', 0.0001)
 
 # set initial price
-initialPrice = "" + bv.USD()
+initialPrice = bv.USD()
+print(initialPrice)
 
 # Actual algorithm loop
 bool = True;
@@ -48,7 +57,12 @@ count = 1
 # this loop is not working properly from some reason
 while (stop != "s"):
     time.sleep(1)
-    print("hi",flush=True)
+    #print("hi",flush=True)
+    prevPrice = bv.USD()
+
+    if (capitalLeft > 0):
+        if (initialPrice * 0.99999 >= int(prevPrice)):
+            print("Bitcoin would have been bought at: " + prevPrice + " after it dropped from " + initialPrice, flush=True)
 
     #if ((int(initialPrice) * 0.99) == bv.USD())
 
