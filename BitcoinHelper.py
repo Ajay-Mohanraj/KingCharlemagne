@@ -24,7 +24,6 @@ def scrapeWeb():
 
 def getAuthKey():
     js_script = (scrapeWeb().select('script')[0]).text
-
     split_js = js_script.split('\n')
     winAuth = (split_js[28].split(":"))[1]
 
@@ -38,4 +37,21 @@ def getJSON(filePathAndName):
     with open(filePathAndName, 'r') as fp:
         return json.load(fp)
 
-print(getPrice())
+
+# overwrites prices.json file with new information
+def overwriteJSON(data):
+    with open("./prices.json", 'w') as fp:
+        json.dump(data, fp)
+
+
+# sets capital
+def setCapital(capital):
+    rawJSON = getJSON('./prices.json')
+    rawJSON['capital'] = capital
+    overwriteJSON(rawJSON)
+
+
+# gets capital left
+def getCapitalLeft():
+    rawJSON = getJSON('./prices.json')
+    return rawJSON['capital']
