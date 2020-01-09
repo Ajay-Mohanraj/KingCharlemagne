@@ -47,11 +47,11 @@ def overwriteJSON(data):
 # sets capital
 def setCapital(capital):
     rawJSON = getJSON('./prices.json')
-    rawJSON['capital'] = capital
+    rawJSON['capital'] = int(capital)
     overwriteJSON(rawJSON)
 
 
 # gets capital left
 def getCapitalLeft():
     rawJSON = getJSON('./prices.json')
-    return rawJSON['capital']
+    return int(rawJSON['capital'])

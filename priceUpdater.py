@@ -15,12 +15,12 @@ def updateSell(price, currentPrice):
     rawJSON = BitcoinHelper.getJSON('./prices.json')
     rawJSON["boughtPrices"].remove(price)
     rawJSON['quantity'] -= 0.0001
-    rawJSON["capital"] += currentPrice
+    rawJSON["capital"] += int(currentPrice)
     BitcoinHelper.overwriteJSON(rawJSON)
 
 
 def updateConstant(givenConstantPrice):
     rawJSON = BitcoinHelper.getJSON('./prices.json')
-    rawJSON["constantPrices"].append(givenConstantPrice)
+    rawJSON["constantPrices"].append(int(givenConstantPrice))
     BitcoinHelper.overwriteJSON(rawJSON)
 

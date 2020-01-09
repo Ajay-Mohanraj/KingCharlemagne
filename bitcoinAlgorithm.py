@@ -19,7 +19,7 @@ priceUpdater.updateConstant(givenConstantPrice)
 BitcoinHelper.setCapital(input("What is your initial capital? "))
 loopBreaker = input("Type stop to end the loop\n")
 
-while loopBreaker != 'stop':
+while loopBreaker != 'stop' and BitcoinHelper.getCapitalLeft() > 0:
     time.sleep(30)
     possibleBuy = BitcoinHelper.getPrice()
     #  if the current value is equal to 1% less than the constant
