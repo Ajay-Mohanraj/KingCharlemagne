@@ -20,8 +20,11 @@ BitcoinHelper.setCapital(input("What is your initial capital? "))
 loopBreaker = input("Type stop to end the loop\n")
 
 while loopBreaker != 'stop' and BitcoinHelper.getCapitalLeft() > 0:
+    sleep = 0
     time.sleep(30)
+    sleep += 30
     possibleBuy = BitcoinHelper.getPrice()
+
     #  if the current value is equal to 1% less than the constant
     if BitcoinHelper.getCapitalLeft() > possibleBuy:
         if possibleBuy <= givenConstantPrice * 0.99:
@@ -30,6 +33,9 @@ while loopBreaker != 'stop' and BitcoinHelper.getCapitalLeft() > 0:
 
     # if the current value is equal to 1% more than the bought price
     for price in prevPriceJSON["boughtPrices"]:
-        if possibleBuy >= price * 1.01:
+        if possibleBuy >= price * 1.005:
             r.order_sell_crypto_by_quantity('BTC', 0.0001)
             priceUpdater.updateSell(price, possibleBuy)
+
+    if sleep >= 10800:
+        givenConstantPrice = BitcoinHelper.getPrice()
