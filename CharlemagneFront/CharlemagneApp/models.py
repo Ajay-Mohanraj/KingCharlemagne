@@ -5,4 +5,4 @@ class Trades(models.Model):
     time = models.DateTimeField()
 
     def __str__(self):
-        return self.id
+        return self.id + " | " + str(self.time)

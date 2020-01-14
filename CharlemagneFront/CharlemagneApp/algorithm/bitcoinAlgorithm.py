@@ -17,7 +17,7 @@ givenConstantPrice = BitcoinHelper.getPrice()
 priceUpdater.updateConstant(givenConstantPrice)
 
 BitcoinHelper.setCapital(input("What is your initial capital? "))
-loopBreaker = input("Type stop to end the loop\n")
+#loopBreaker = input("Type stop to end the loop\n")
 
 while loopBreaker != 'stop' and BitcoinHelper.getCapitalLeft() > 0:
     time.sleep(30)

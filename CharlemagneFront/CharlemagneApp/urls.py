@@ -1,7 +1,7 @@
-from django.urls import path, include
-
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.MakeMoney.as_view(), name="home"),
+    path('index.html', views.MakeMoney, name='index'),
+    path('home.html', views.StartProgram, name='home')
 ]
