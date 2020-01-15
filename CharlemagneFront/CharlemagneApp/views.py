@@ -2,41 +2,45 @@ from django.shortcuts import render
 from .forms import ListForm
 from django.http import HttpResponseRedirect
 import json
+import os
+from django.conf import settings
 
-robinUser = ''
-robinPass = ''
-capitalToInvest = 0
+pricesFile = os.path.join(settings.BASE_DIR, 'CharlemagneApp/static/prices.json')
+accountInfoFile = os.path.join(settings.BASE_DIR, 'CharlemagneApp/static/accountInfo.json')
 
 def MakeMoney(request):
     if request.method == 'POST':
         form = ListForm(request.POST)
         if form.is_valid():
-            robinUser = form.cleaned_data['robinUser']
-            robinPass = form.cleaned_data['robinPass']
-            capitalToInvest = form.cleaned_data['capitalToInvest']
+            def getJSON(filePathAndName):
+                with open(filePathAndName, 'r') as fp:
+                    return json.load(fp)
+
+            def overwriteJSON(data):
+                with open("./prices.json", 'w') as fp:
+                    json.dump(data, fp)
+
+            def StartProgram(request):
+                rawJSON = getJSON(pricesFile)
+                rawJSON['capital'] = int(form.cleaned_data['capitalToInvest'])
+                with open(pricesFile, 'w') as fp:
+                    json.dump(rawJSON, fp)
+                rawJSON2 = getJSON(accountInfoFile)
+                rawJSON2['email'] = form.cleaned_data['robinUser']
+                rawJSON2['pass'] = form.cleaned_data['robinPass']
+                with open(accountInfoFile, 'w') as fp:
+                    json.dump(rawJSON2, fp)
+
+                return render(request, 'index.html')
+
+            StartProgram()
+
             return HttpResponseRedirect('/index.html/')
     else:
         form = ListForm()
 
     return render(request, 'home.html', {'form': form})
 
-def getJSON(filePathAndName):
-    with open(filePathAndName, 'r') as fp:
-        return json.load(fp)
 
-def overwriteJSON(data):
-    with open("./prices.json", 'w') as fp:
-        json.dump(data, fp)
-
-def StartProgram(request):
-    rawJSON = getJSON('templates/prices.json')
-    rawJSON['capital'] = int(capitalToInvest)
-    with open('templates/prices.json', 'w') as fp:
-        json.dump(rawJSON, fp)
-    rawJSON2 = getJSON('templates/accountInfo.json')
-    rawJSON2['email'] = robinUser
-    rawJSON2['pass'] = robinPass
-    with open("templates/accountInfo.json", 'w') as fp:
-        json.dump(rawJSON2, fp)
-
+def Pass(request):
     return render(request, 'index.html')

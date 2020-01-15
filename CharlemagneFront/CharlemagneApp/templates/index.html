@@ -3,22 +3,16 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
 
 <script>
+  $(function() {
+     var info = [];
 
-    $(function() {
-
-
-   var info = [];
-
-   $.getJSON('accountInfo.json', function(data) {
-       $.each(data, function(i, f) {
-          var tblRow = "<tr>" + "<td>" + f.email + "</td>" +
-           "<td>" + f.pass + "</td>" + "</tr>"
-           $(tblRow).appendTo("#userdata tbody");
+     $.getJSON('../static/accountInfo.json', function(data) {
+         $.each(data, function(i, f) {
+            var tblRow = "<tr>" + "<td>" + f.email + "</td>" + "<td>" + f.pass + "</td>" + "</tr>"
+             $(tblRow).appendTo("#userdata tbody");
+       });
      });
-
-   });
-
-});
+  });
 </script>
 </head>
 
@@ -26,7 +20,7 @@
   <p>Your money is currently being invested. Open your Robinhood account to see it in action.</p>
 <div class="wrapper">
   <div class="profile">
-     <table id="userdata" border="2">
+     <table id="userdata" border="1">
           <thead>
               <th>Robinhood Email</th>
               <th>Robinhood Password</th>
