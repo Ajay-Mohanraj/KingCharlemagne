@@ -16,15 +16,13 @@ def MakeMoney(request):
                 with open(filePathAndName, 'r') as fp:
                     return json.load(fp)
 
-            def overwriteJSON(data):
-                with open("./prices.json", 'w') as fp:
-                    json.dump(data, fp)
-
             def StartProgram(request):
+                #print("program started")
                 rawJSON = getJSON(pricesFile)
                 rawJSON['capital'] = int(form.cleaned_data['capitalToInvest'])
                 with open(pricesFile, 'w') as fp:
                     json.dump(rawJSON, fp)
+
                 rawJSON2 = getJSON(accountInfoFile)
                 rawJSON2['email'] = form.cleaned_data['robinUser']
                 rawJSON2['pass'] = form.cleaned_data['robinPass']
