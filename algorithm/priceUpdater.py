@@ -1,5 +1,5 @@
 import json
-import BitcoinHelper
+import algorithm.BitcoinHelper as BitcoinHelper
 # https://stackabuse.com/reading-and-writing-json-to-a-file-in-python/
 
 
