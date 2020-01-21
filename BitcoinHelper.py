@@ -25,7 +25,13 @@ def scrapeWeb():
 def getAuthKey():
     js_script = (scrapeWeb().select('script')[0]).text
     split_js = js_script.split('\n')
-    winAuth = (split_js[28].split(":"))[1]
+
+    # counter = 0
+    # for e in split_js:
+    #     print("" + str(counter) + e)
+    #     counter += 1
+
+    winAuth = (split_js[27].split(":"))[1]
 
     # removes 13 characters from the end and strips unnecessary quotation marks
     winAuthToken = winAuth[:-13].strip('"')
