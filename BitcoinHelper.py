@@ -11,7 +11,7 @@ def getPrice():
 
     response = requests.get("https://api.robinhood.com/marketdata/forex/quotes/3d961844-d360-45fc-989b-f6fca761d511/", headers=HEADERS)
     responseJSON = json.loads(response.content)
-    return responseJSON['ask_price']
+    return float(responseJSON['ask_price'])
 
 
 def scrapeWeb():
