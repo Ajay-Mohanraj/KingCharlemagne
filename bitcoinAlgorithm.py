@@ -34,18 +34,20 @@ while loopBreaker != 'stop' and BitcoinHelper.getCapitalLeft() > 0:
     print("Charlemagne is determining whether or not to buy or sell...", flush=True)
 
     #  if the current value is equal to 1% less than the constant
-    if BitcoinHelper.getCapitalLeft() > 0:
+    if BitcoinHelper.getCapitalLeft() > 5:
         if possibleBuy <= (givenConstantPrice * 0.999):
-            r.order_buy_crypto_by_quantity('BTC', 0.0001)
+            r.order_buy_crypto_by_quantity('BTC', BitcoinHelper.getBuyConstant())
             priceUpdater.updateBuy(possibleBuy)
-            print("0.0001 Bitcoin was bought at: " + str(possibleBuy), flush=True)
+            print("" + BitcoinHelper.getBuyConstant() + " Bitcoin was bought at: " + str(possibleBuy), flush=True)
 
     # if the current value is equal to 1% more than the bought price
     for price in prevPriceJSON["boughtPrices"]:
         if possibleBuy >= price * 1.001:
-            r.order_sell_crypto_by_quantity('BTC', 0.0001)
+            r.order_sell_crypto_by_quantity('BTC', BitcoinHelper.getBuyConstant())
             priceUpdater.updateSell(price, possibleBuy)
-            print("0.0001 Bitcoin was sold at: " + str(possibleBuy), flush=True)
+            print("" + BitcoinHelper.getBuyConstant() + " Bitcoin was sold at: " + str(possibleBuy), flush=True)
 
     if ((sleep % 10800) == 0):
         givenConstantPrice = BitcoinHelper.getPrice()
+        priceUpdater.updateConstant(givenConstantPrice)
+        BitcoinHelper.setBuyConstant()

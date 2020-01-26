@@ -55,6 +55,22 @@ def setCapital(capital):
     rawJSON['capital'] = int(capital)
     overwriteJSON(rawJSON)
 
+# gets initial capital
+def getCapital():
+    rawJSON = getJSON('./prices.json')
+    return(rawJSON['capital'])
+
+# sets the buy constant in the price JSON
+def setBuyConstant():
+    rawJSON = getJSON('./prices.json')
+    constant = (getCapital() * 0.02) / (getPrice())
+    rawJSON['constant'] = constant
+    overwriteJSON(rawJSON)
+
+# gets the buy constant in the price JSON
+def getBuyConstant():
+    rawJSON = getJSON('./prices.json')
+    return rawJSON['constant']
 
 # gets capital left
 def getCapitalLeft():
