@@ -44,7 +44,7 @@ while loopBreaker != 'stop' and BitcoinHelper.getCapitalLeft() > 0:
     for price in prevPriceJSON["boughtPrices"]:
         if possibleBuy >= price * 1.001:
             r.order_sell_crypto_by_quantity('BTC', BitcoinHelper.getBuyConstant())
-            priceUpdater.updateSell(price, possibleBuy)
+            priceUpdater.updateSell(float(price), possibleBuy)
             print("" + str(BitcoinHelper.getBuyConstant()) + " Bitcoin was sold at: " + str(possibleBuy), flush=True)
 
     if (sleep % 10800) == 0:
