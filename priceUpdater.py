@@ -17,7 +17,6 @@ def updateSell(price, currentPrice):
         rawJSON["boughtPrices"].remove(float(price))
     else:
         print("The program is not selling. There was an issue. You should probably go away now.")
-    rawJSON["boughtPrices"].remove(price)
     rawJSON['quantity'] -= BitcoinHelper.getBuyConstant()
     rawJSON["capital"] += (currentPrice * BitcoinHelper.getBuyConstant())
     BitcoinHelper.overwriteJSON(rawJSON)
