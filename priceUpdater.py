@@ -13,7 +13,6 @@ def updateBuy(possibleBuy):
 
 def updateSell(price, currentPrice):
     rawJSON = BitcoinHelper.getJSON('./prices.json')
-    rawJSON["boughtPrices"].remove(price)
     rawJSON['quantity'] -= BitcoinHelper.getBuyConstant()
     rawJSON["capital"] += (currentPrice * BitcoinHelper.getBuyConstant())
     BitcoinHelper.overwriteJSON(rawJSON)
