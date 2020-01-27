@@ -1,19 +1,15 @@
-from flask import Flask, redirect, url_for, render_template, request, session
-import json
-import sys
-import os
-
+from flask import Flask, render_template,request
 app = Flask(__name__)
-
-@app.route('/', methods=['GET', 'POST'])
+username = ""
+password = ""
+@app.route('/login')
+def index():
+    return render_template('index.html')
 def login():
-    return render_template('home.html')
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    return redirect(url_for('login'))
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
 
-
-# ======== Main ============================================================== #
-if __name__ == "__main__":
-    app = Flask(__name__, template_folder='templates')
-    app.run(debug=True, use_reloader=True)
+    return username
+if __name__ == '__main__':
+    app.run(debug=True)
