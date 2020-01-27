@@ -13,6 +13,10 @@ def updateBuy(possibleBuy):
 
 def updateSell(price, currentPrice):
     rawJSON = BitcoinHelper.getJSON('./prices.json')
+    if price in rawJSON["boughtPrices"]:
+        rawJSON["boughtPrices"].remove(price)
+    else:
+        print("The program is not selling. There was an issue.")
     rawJSON['quantity'] -= BitcoinHelper.getBuyConstant()
     rawJSON["capital"] += (currentPrice * BitcoinHelper.getBuyConstant())
     BitcoinHelper.overwriteJSON(rawJSON)
