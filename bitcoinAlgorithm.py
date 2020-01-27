@@ -47,7 +47,7 @@ while loopBreaker != 'stop' and BitcoinHelper.getCapitalLeft() > 0:
             priceUpdater.updateSell(price, possibleBuy)
             print("" + str(BitcoinHelper.getBuyConstant()) + " Bitcoin was sold at: " + str(possibleBuy), flush=True)
 
-    if ((sleep % 10800) == 0):
+    if (sleep % 10800) == 0:
         givenConstantPrice = BitcoinHelper.getPrice()
         priceUpdater.updateConstant(givenConstantPrice)
         BitcoinHelper.setBuyConstant()
